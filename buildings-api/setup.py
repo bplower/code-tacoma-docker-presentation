@@ -11,7 +11,7 @@ setup(
     install_requires = [
         'Flask',
         'PyYAML',
-        'psycopg2'
+        'psycopg2-binary'
     ],
     entry_points = {
         'console_scripts': [

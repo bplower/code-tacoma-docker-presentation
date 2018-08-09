@@ -21,7 +21,11 @@ class BuildingsApi(Flask):
         # Read the configuration file
         self.app_config = load_config(config_path)
         # Connect to the database and create our connection pool
-        self.db_pool = ThreadedConnectionPool(1, 20, **self.app_config['db'])
+        try:
+            self.db_pool = ThreadedConnectionPool(1, 20, **self.app_config['db'])
+        except:
+            # This a bad way of handling connection errors, but it's good enough for this project
+            sys.exit("Failed to connect to database.")
 
     def run(self):
         super().run(**self.app_config['web'])
@@ -62,11 +66,16 @@ class BuildingsApi(Flask):
         return Response("Database error", status_code=500)
 
 def load_config(cfg_path):
-    with open(cfg_path, 'r') as stream:
-        try:
-            return yaml.load(stream)
-        except yaml.YAMLError as exc:
-            sys.exit(exc)
+    try:
+        with open(cfg_path, 'r') as stream:
+            try:
+                return yaml.load(stream)
+            except yaml.YAMLError as exc:
+                sys.exit(exc)
+    except FileNotFoundError:
+        sys.exit("No such file or directory: '{}'".format(cfg_path))
+    except:
+        sys.exit("General error while opening config file: '{}'".format(cfg_path))
 
 def db_buildings_all(cursor):
     """ Gets all buildings from the database
