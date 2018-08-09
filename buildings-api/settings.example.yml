@@ -1,2 +1,9 @@
-host: 127.0.0.1
-port: 8080
+db:
+  database: buildings-db
+  user: buildings-user
+  password: buildings-password
+  host: 127.0.0.1
+  port: 5432
+web:
+  host: 127.0.0.1
+  port: 8080
