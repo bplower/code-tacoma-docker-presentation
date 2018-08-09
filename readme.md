@@ -3,13 +3,13 @@
 
 This repository demonstrates some of the basics of docker and docker-compose through the use of a simple flask API backed with a database.
 
-[Building via Docker]()
-[Running via Docker]()
-[Building via Docker Compose]()
-[Running via Docker Compose]()
-[Databae initialization]()
-[Local development]()
-[Tooling glossary]()
+- [Building via Docker](https://github.com/bplower/code-tacoma-docker-presentation#building-via-docker)
+- [Running via Docker](https://github.com/bplower/code-tacoma-docker-presentation#running-via-docker)
+- [Building via Docker Compose](https://github.com/bplower/code-tacoma-docker-presentation#building-via-docker-compose)
+- [Running via Docker Compose](https://github.com/bplower/code-tacoma-docker-presentation#running-via-docker-compose)
+- [Databae initialization](https://github.com/bplower/code-tacoma-docker-presentation#database-initialization)
+- [Local development](https://github.com/bplower/code-tacoma-docker-presentation#local-development)
+- [Tooling glossary](https://github.com/bplower/code-tacoma-docker-presentation#tooling-glossary)
 
 ## Building via Docker
 
