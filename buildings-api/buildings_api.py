@@ -14,18 +14,17 @@ import yaml
 class BuildingsApi(Flask):
     def __init__(self, config_path):
         super().__init__(__name__)
-        self.app_config = self._load_config(config_path)
-        self.db_pool = ThreadedConnectionPool(1, 20, **self.app_config['db'])
+        # Register the routes and their handlers
         self.route('/')(self.index)
         self.route('/buildings')(self.buildings)
         self.route('/buildings/<building_id>')(self.building_get)
+        # Read the configuration file
+        self.app_config = load_config(config_path)
+        # Connect to the database and create our connection pool
+        self.db_pool = ThreadedConnectionPool(1, 20, **self.app_config['db'])
 
-    def _load_config(self, cfg_path):
-        with open(cfg_path, 'r') as stream:
-            try:
-                return yaml.load(stream)
-            except yaml.YAMLError as exc:
-                sys.exit(exc)
+    def run(self):
+        super().run(**self.app_config['web'])
 
     @contextmanager
     def _get_db_connection(self):
@@ -61,6 +60,13 @@ class BuildingsApi(Flask):
             building = db_buildings_get(cursor, building_id)
             return Response(str(building), mimetype='text/json')
         return Response("Database error", status_code=500)
+
+def load_config(cfg_path):
+    with open(cfg_path, 'r') as stream:
+        try:
+            return yaml.load(stream)
+        except yaml.YAMLError as exc:
+            sys.exit(exc)
 
 def db_buildings_all(cursor):
     """ Gets all buildings from the database

@@ -1,0 +1,8 @@
+
+FROM python:3-slim
+ADD . /app
+WORKDIR /app
+RUN pip install .
+EXPOSE 8080
+
+CMD ["buildings-api", "settings.yml"]

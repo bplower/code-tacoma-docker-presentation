@@ -2,8 +2,8 @@ db:
   database: buildings-db
   user: buildings-user
   password: buildings-password
-  host: localhost
+  host: db
   port: 5432
 web:
-  host: localhost
+  host: 0.0.0.0
   port: 8080
